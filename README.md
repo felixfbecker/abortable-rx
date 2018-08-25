@@ -25,7 +25,7 @@ This micro library provides that mechanism.
 npm install abortable-rx
 ```
 
-## Included
+## Included <span style="float: right">📖 [Full API documentation](https://unpkg.com/abortable-rx/docs/)</span>
 
 ### Observable factories
 
@@ -49,6 +49,8 @@ npm install abortable-rx
   Like RxJS `concatMap`, but passes an AbortSignal that is aborted when the returned Observable is unsubscribed from.
 - `mergeMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>`
   Like RxJS `mergeMap`, but passes an AbortSignal that is aborted when the returned Observable is unsubscribed from.
+
+📖 [Full API documentation](https://unpkg.com/abortable-rx/docs/)
 
 ## Handling AbortError
 
