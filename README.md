@@ -15,8 +15,9 @@ Enables easy interop between Observable code and Promise-returning functions, wi
 
 Some operations are imperative by nature and easier to express in imperative code with async/await.
 Expressing these operations that need control flow with functional RxJS operators or Subjects results in unreadable and unmaintainable code.
-RxJS has great interop with Promises, however, it doesn't provide an easy mechanism to propagate cancellation to promise-returning functions.
-AbortSignals is the mechanism that is used by the native `fetch` API.
+In addition, it is confusing to have async functions that only have one or no result, but return an Observable, as it is unclear how many times it will emit.
+RxJS has great interop with Promises, however, it doesn't provide an easy mechanism to propagate cancellation to promise-returning functions like the native `fetch` API.
+This micro library provides that mechanism.
 
 ## Installation
 
