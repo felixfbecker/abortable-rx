@@ -1,6 +1,17 @@
 {
   "name": "abortable-rx",
   "description": "Drop-in replacements for RxJS Observable methods and operators that work with AbortSignal",
+  "keywords": [
+    "rx",
+    "rxjs",
+    "reactive",
+    "AbortSignal",
+    "AbortController",
+    "cancel",
+    "Promise",
+    "async",
+    "fetch"
+  ],
   "version": "0.0.0-development",
   "license": "MIT",
   "author": "Felix Becker <felix.b@outlook.com>",
