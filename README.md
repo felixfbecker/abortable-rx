@@ -1,7 +1,6 @@
 # Abortable Rx
 
 [![npm](https://img.shields.io/npm/v/abortable-rx.svg)](https://www.npmjs.com/package/abortable-rx)
-[![downloads](https://img.shields.io/npm/dm/abortable-rx.svg)](https://www.npmjs.com/package/abortable-rx)
 [![build](https://travis-ci.org/felixfbecker/abortable-rx.svg?branch=master)](https://travis-ci.org/felixfbecker/abortable-rx)
 [![codecov](https://codecov.io/gh/felixfbecker/abortable-rx/branch/master/graph/badge.svg)](https://codecov.io/gh/felixfbecker/abortable-rx)
 [![dependencies](https://david-dm.org/felixfbecker/abortable-rx.svg)](https://david-dm.org/felixfbecker/abortable-rx)
