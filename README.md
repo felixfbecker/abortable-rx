@@ -38,7 +38,7 @@ npm install abortable-rx
 
 - `toPromise<T>(observable: Observable<T>, signal?: AbortSignal): Promise<T>`
   Returns a Promise that resolves with the last emission of the given Observable, rejects if the Observable errors or rejects with an `AbortError` when the AbortSignal is aborted.
-- `toPromise<T>(source: Observable<T>, next: (value: T) => void, signal?: AbortSignal): Promise<void>`
+- `forEach<T>(source: Observable<T>, next: (value: T) => void, signal?: AbortSignal): Promise<void>`
   Calls `next` for every emission and returns a Promise that resolves when the Observable completed, rejects if the Observable errors or rejects with an `AbortError` when the AbortSignal is aborted.
 
 ### Observable operators
