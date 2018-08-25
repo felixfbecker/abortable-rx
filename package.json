@@ -24,14 +24,26 @@
   "types": "lib/index.d.ts",
   "files": [
     "lib",
-    "src"
+    "src",
+    "docs"
   ],
   "scripts": {
     "build": "tsc -p .",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' nyc --require ts-node/register mocha \"src/*.test.ts\"",
     "prettier": "prettier '**/{*.{js?(on),ts,yml},.*.js?(on),.*.yml}' --write --list-different",
     "tslint": "tslint -t stylish -c tslint.json -p tsconfig.json './src/*.ts'",
-    "semantic-release": "semantic-release"
+    "typedoc": "typedoc --out docs --readme none --excludeExternals --tsconfig tsconfig.typedoc.json"
+  },
+  "release": {
+    "analyzeCommits": {
+      "preset": "angular",
+      "releaseRules": [
+        {
+          "type": "docs",
+          "release": "patch"
+        }
+      ]
+    }
   },
   "nyc": {
     "include": [
@@ -64,6 +76,7 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
+    "typedoc": "^0.12.0",
     "typescript": "^3.0.1"
   }
 }
