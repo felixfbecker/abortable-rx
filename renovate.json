@@ -1,8 +1,5 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", ":maintainLockFilesMonthly"],
   "rangeStrategy": "replace",
-  "prCreation": "not-pending",
-  "lockFileMaintenance": {
-    "enabled": true
-  }
+  "prCreation": "not-pending"
 }
