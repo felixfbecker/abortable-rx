@@ -2,7 +2,7 @@ Object.assign(global, require('abort-controller'))
 
 import { AssertionError } from 'assert'
 import { assert } from 'chai'
-import { Observable, of, Subject, Subscriber } from 'rxjs'
+import { Observable, of, Subject, Subscriber, throwError } from 'rxjs'
 import * as sinon from 'sinon'
 import { concatMap, create, defer, forEach, mergeMap, switchMap, toPromise } from '.'
 
@@ -123,6 +123,17 @@ describe('Observable consumers', () => {
             const onnext = sinon.spy()
             await forEach(obs, onnext, abortController.signal)
             assert.deepStrictEqual(onnext.args, [[1], [2], [3]])
+        })
+        it('should reject the Promise when the Observable errors', async () => {
+            const error = new Error()
+            const obs = throwError(error)
+            const abortController = new AbortController()
+            try {
+                await forEach(obs, () => undefined, abortController.signal)
+                throw new AssertionError({ message: 'Expected Promise to be rejected' })
+            } catch (err) {
+                assert.strictEqual(err, error)
+            }
         })
     })
 })
