@@ -32,7 +32,7 @@
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' nyc --require ts-node/register mocha \"src/*.test.ts\"",
     "prettier": "prettier '**/{*.{js?(on),ts,yml},.*.js?(on),.*.yml}' --write --list-different",
     "tslint": "tslint -t stylish -c tslint.json -p tsconfig.json './src/*.ts'",
-    "typedoc": "typedoc --out docs --readme none --excludeExternals --tsconfig tsconfig.typedoc.json --mode file"
+    "typedoc": "typedoc --out docs --readme none --excludeExternals --tsconfig tsconfig.typedoc.json --mode file --theme minimal"
   },
   "release": {
     "analyzeCommits": {
