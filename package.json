@@ -1,0 +1,57 @@
+{
+  "name": "abortable-rx",
+  "description": "Drop-in replacements for RxJS Observable methods and operators that work with AbortSignal",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "author": "Felix Becker <felix.b@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felixfbecker/abortable-rx"
+  },
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' nyc --require ts-node/register mocha \"src/*.test.ts\"",
+    "prettier": "prettier '**/{*.{js?(on),ts,yml},.*.js?(on),.*.yml}' --write --list-different",
+    "tslint": "tslint -c tslint.json -p tsconfig.json './src/*.ts'",
+    "semantic-release": "semantic-release"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.test.ts"
+    ],
+    "extension": [
+      ".ts"
+    ]
+  },
+  "dependencies": {
+    "rxjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.9.2",
+    "@types/sinon": "^5.0.1",
+    "abort-controller": "^1.0.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "prettier": "^1.14.2",
+    "semantic-release": "^15.9.9",
+    "sinon": "^6.1.5",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
+  }
+}
