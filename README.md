@@ -43,11 +43,17 @@ npm install abortable-rx
 
 ### Observable operators
 
-- `switchMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>`
+- ```ts
+  switchMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>
+  ```
   Like RxJS `switchMap`, but passes an AbortSignal that is aborted when the source emits another element.
-- `concatMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>`
+- ```ts
+  concatMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>
+  ```
   Like RxJS `concatMap`, but passes an AbortSignal that is aborted when the returned Observable is unsubscribed from.
-- `mergeMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>`
+- ```ts
+  mergeMap<T, R>(project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>): OperatorFunction<T, R>
+  ```
   Like RxJS `mergeMap`, but passes an AbortSignal that is aborted when the returned Observable is unsubscribed from.
 
 ## Handling AbortError
