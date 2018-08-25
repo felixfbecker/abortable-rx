@@ -1,10 +1,10 @@
 Object.assign(global, require('abort-controller'))
 
-import { create, defer, toPromise, switchMap, concatMap, mergeMap, forEach } from '.'
-import { assert } from 'chai'
-import * as sinon from 'sinon'
-import { Subscriber, Subject, Observable, of } from 'rxjs'
 import { AssertionError } from 'assert'
+import { assert } from 'chai'
+import { Observable, of, Subject, Subscriber } from 'rxjs'
+import * as sinon from 'sinon'
+import { concatMap, create, defer, forEach, mergeMap, switchMap, toPromise } from '.'
 
 describe('Observable factories', () => {
     describe('create()', () => {

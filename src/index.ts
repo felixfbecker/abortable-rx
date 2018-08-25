@@ -1,20 +1,5 @@
-import { from, Observable, ObservableInput, Subscriber, Subscription, TeardownLogic, OperatorFunction } from 'rxjs'
+import { from, Observable, ObservableInput, OperatorFunction, Subscriber, Subscription, TeardownLogic } from 'rxjs'
 import { concatMap as rxConcatMap, mergeMap as rxMergeMap, switchMap as rxSwitchMap } from 'rxjs/operators'
-
-export const switchMap = <T, R>(
-    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
-): OperatorFunction<T, R> => source =>
-    source.pipe(rxSwitchMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))
-
-export const concatMap = <T, R>(
-    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
-): OperatorFunction<T, R> => source =>
-    source.pipe(rxConcatMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))
-
-export const mergeMap = <T, R>(
-    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
-): OperatorFunction<T, R> => source =>
-    source.pipe(rxMergeMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))
 
 export const create = <T>(
     subscribe?: (subscriber: Subscriber<T>, signal: AbortSignal) => TeardownLogic
@@ -81,3 +66,18 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
             })
         }
     })
+
+export const switchMap = <T, R>(
+    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
+): OperatorFunction<T, R> => source =>
+    source.pipe(rxSwitchMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))
+
+export const concatMap = <T, R>(
+    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
+): OperatorFunction<T, R> => source =>
+    source.pipe(rxConcatMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))
+
+export const mergeMap = <T, R>(
+    project: (value: T, index: number, abortSignal: AbortSignal) => ObservableInput<R>
+): OperatorFunction<T, R> => source =>
+    source.pipe(rxMergeMap((value, index) => defer(abortSignal => project(value, index, abortSignal))))

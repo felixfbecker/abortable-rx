@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:recommended", "rxjs-tslint-rules", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
     "adjacent-overload-signatures": true,
     "array-type": [true, "array"],
@@ -87,16 +87,6 @@
     "prefer-template": [false, "allow-single-concat"],
     "quotemark": [true, "single", "jsx-double", "avoid-escape"],
     "return-undefined": true,
-    "rxjs-no-add": {
-      "severity": "error"
-    },
-    "rxjs-no-operator": {
-      "severity": "error"
-    },
-    "rxjs-no-patched": {
-      "severity": "error"
-    },
-    "rxjs-no-wholesale": true,
     "space-before-function-paren": [
       true,
       {
