@@ -24,3 +24,8 @@ deploy:
   script: ./node_modules/.bin/semantic-release
   on:
     branch: master
+
+branches:
+  only:
+    - master
+    - /renovate\/.+/
