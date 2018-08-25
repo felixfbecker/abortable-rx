@@ -6,7 +6,7 @@
   "author": "Felix Becker <felix.b@outlook.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixfbecker/abortable-rx"
+    "url": "https://github.com/felixfbecker/abortable-rx.git"
   },
   "sideEffects": false,
   "main": "lib/index.js",
