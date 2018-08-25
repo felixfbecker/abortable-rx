@@ -135,6 +135,23 @@ describe('Observable consumers', () => {
                 assert.strictEqual(err, error)
             }
         })
+        it('should reject the Promise when the next function throws', async () => {
+            const error = new Error()
+            const obs = of(1)
+            const abortController = new AbortController()
+            try {
+                await forEach(
+                    obs,
+                    () => {
+                        throw error
+                    },
+                    abortController.signal
+                )
+                throw new AssertionError({ message: 'Expected Promise to be rejected' })
+            } catch (err) {
+                assert.strictEqual(err, error)
+            }
+        })
     })
 })
 
