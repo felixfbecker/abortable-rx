@@ -25,7 +25,7 @@ This micro library provides that mechanism.
 npm install abortable-rx
 ```
 
-## Included <span style="float: right">📖 [Full API documentation](https://unpkg.com/abortable-rx/docs/)</span>
+## Included
 
 ### Observable factories
 
