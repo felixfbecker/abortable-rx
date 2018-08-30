@@ -50,10 +50,14 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
             }
         )
         if (signal) {
-            signal.addEventListener('abort', () => {
-                subscription.unsubscribe()
-                reject(createAbortError())
-            })
+            signal.addEventListener(
+                'abort',
+                () => {
+                    subscription.unsubscribe()
+                    reject(createAbortError())
+                },
+                { once: true }
+            )
         }
     })
 
@@ -85,10 +89,14 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
             resolve
         )
         if (signal) {
-            signal.addEventListener('abort', () => {
-                subscription.unsubscribe()
-                reject(createAbortError())
-            })
+            signal.addEventListener(
+                'abort',
+                () => {
+                    subscription.unsubscribe()
+                    reject(createAbortError())
+                },
+                { once: true }
+            )
         }
     })
 
