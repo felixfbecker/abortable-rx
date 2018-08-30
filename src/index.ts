@@ -1,6 +1,12 @@
 import { from, Observable, ObservableInput, OperatorFunction, Subscriber, Subscription, TeardownLogic } from 'rxjs'
 import { concatMap as rxConcatMap, mergeMap as rxMergeMap, switchMap as rxSwitchMap } from 'rxjs/operators'
 
+const createAbortError = () => {
+    const error = new Error('Aborted')
+    error.name = 'AbortError'
+    return error
+}
+
 /**
  * Creates an Observable just like RxJS `create`, but exposes an AbortSignal in addition to the subscriber
  */
@@ -29,6 +35,10 @@ export const defer = <T>(factory: (signal: AbortSignal) => ObservableInput<T>): 
  */
 export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): Promise<T> =>
     new Promise((resolve, reject) => {
+        if (signal && signal.aborted) {
+            reject(createAbortError())
+            return
+        }
         let value: T
         const subscription = observable.subscribe(
             val => {
@@ -42,9 +52,7 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
         if (signal) {
             signal.addEventListener('abort', () => {
                 subscription.unsubscribe()
-                const error = new Error('Aborted')
-                error.name = 'AbortError'
-                reject(error)
+                reject(createAbortError())
             })
         }
     })
@@ -55,6 +63,10 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
  */
 export const forEach = <T>(source: Observable<T>, next: (value: T) => void, signal?: AbortSignal): Promise<void> =>
     new Promise<void>((resolve, reject) => {
+        if (signal && signal.aborted) {
+            reject(createAbortError())
+            return
+        }
         // Must be declared in a separate statement to avoid a RefernceError when
         // accessing subscription below in the closure due to Temporal Dead Zone.
         let subscription: Subscription
@@ -75,9 +87,7 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
         if (signal) {
             signal.addEventListener('abort', () => {
                 subscription.unsubscribe()
-                const error = new Error('Aborted')
-                error.name = 'AbortError'
-                reject(error)
+                reject(createAbortError())
             })
         }
     })

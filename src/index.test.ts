@@ -86,6 +86,21 @@ describe('Observable consumers', () => {
                 assert.propertyVal(err, 'name', 'AbortError')
             }
         })
+        it('should never subscribe to the Observable if the AbortSignal is already aborted', async () => {
+            const subscribe = sinon.spy()
+            const obs = new Observable<number>(subscribe)
+            const abortController = new AbortController()
+            abortController.abort()
+            const promise = toPromise(obs, abortController.signal)
+            sinon.assert.notCalled(subscribe)
+            try {
+                await promise
+                throw new AssertionError({ message: 'Expected Promise to be rejected' })
+            } catch (err) {
+                assert.instanceOf(err, Error)
+                assert.propertyVal(err, 'name', 'AbortError')
+            }
+        })
         it('should resolve with the last value emitted', async () => {
             const obs = of(1, 2, 3)
             const abortController = new AbortController()
@@ -110,6 +125,23 @@ describe('Observable consumers', () => {
             sinon.assert.notCalled(teardown)
             abortController.abort()
             sinon.assert.calledOnce(teardown)
+            try {
+                await promise
+                throw new AssertionError({ message: 'Expected Promise to be rejected' })
+            } catch (err) {
+                assert.instanceOf(err, Error)
+                assert.propertyVal(err, 'name', 'AbortError')
+            }
+        })
+        it('should never subscribe to the Observable when the AbortSignal is already aborted', async () => {
+            const subscribe = sinon.spy()
+            const obs = new Observable<number>(subscribe)
+            const abortController = new AbortController()
+            abortController.abort()
+            const onnext = sinon.spy()
+            const promise = forEach(obs, onnext, abortController.signal)
+            sinon.assert.notCalled(subscribe)
+            sinon.assert.notCalled(onnext)
             try {
                 await promise
                 throw new AssertionError({ message: 'Expected Promise to be rejected' })
