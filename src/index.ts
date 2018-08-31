@@ -39,25 +39,31 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
             reject(createAbortError())
             return
         }
+        const listener = () => {
+            subscription.unsubscribe()
+            reject(createAbortError())
+        }
+        const cleanup = () => {
+            if (signal) {
+                signal.removeEventListener('abort', listener)
+            }
+        }
         let value: T
         const subscription = observable.subscribe(
             val => {
                 value = val
             },
-            reject,
+            err => {
+                cleanup()
+                reject(err)
+            },
             () => {
+                cleanup()
                 resolve(value)
             }
         )
         if (signal) {
-            signal.addEventListener(
-                'abort',
-                () => {
-                    subscription.unsubscribe()
-                    reject(createAbortError())
-                },
-                { once: true }
-            )
+            signal.addEventListener('abort', listener, { once: true })
         }
     })
 
@@ -70,6 +76,15 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
         if (signal && signal.aborted) {
             reject(createAbortError())
             return
+        }
+        const listener = () => {
+            subscription.unsubscribe()
+            reject(createAbortError())
+        }
+        const cleanup = () => {
+            if (signal) {
+                signal.removeEventListener('abort', listener)
+            }
         }
         // Must be declared in a separate statement to avoid a RefernceError when
         // accessing subscription below in the closure due to Temporal Dead Zone.
@@ -85,18 +100,17 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
                     }
                 }
             },
-            reject,
-            resolve
+            err => {
+                cleanup()
+                reject(err)
+            },
+            () => {
+                cleanup()
+                resolve()
+            }
         )
         if (signal) {
-            signal.addEventListener(
-                'abort',
-                () => {
-                    subscription.unsubscribe()
-                    reject(createAbortError())
-                },
-                { once: true }
-            )
+            signal.addEventListener('abort', listener, { once: true })
         }
     })
 

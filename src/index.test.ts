@@ -107,6 +107,17 @@ describe('Observable consumers', () => {
             const value = await toPromise(obs, abortController.signal)
             assert.strictEqual(value, 3)
         })
+        it('should reject if the Observable errors', async () => {
+            const obs = throwError(123)
+            const abortController = new AbortController()
+            const promise = toPromise(obs, abortController.signal)
+            try {
+                await promise
+                throw new AssertionError({ message: 'Expected Promise to be rejected' })
+            } catch (err) {
+                assert.strictEqual(err, 123)
+            }
+        })
     })
     describe('forEach()', () => {
         it('should unsubscribe from the given Observable when the AbortSignal is aborted', async () => {
