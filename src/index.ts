@@ -39,6 +39,7 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
             reject(createAbortError())
             return
         }
+        let subscription: Subscription
         const listener = () => {
             subscription.unsubscribe()
             reject(createAbortError())
@@ -49,7 +50,7 @@ export const toPromise = <T>(observable: Observable<T>, signal?: AbortSignal): P
             }
         }
         let value: T
-        const subscription = observable.subscribe(
+        subscription = observable.subscribe(
             val => {
                 value = val
             },
@@ -77,6 +78,7 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
             reject(createAbortError())
             return
         }
+        let subscription: Subscription
         const listener = () => {
             subscription.unsubscribe()
             reject(createAbortError())
@@ -86,9 +88,6 @@ export const forEach = <T>(source: Observable<T>, next: (value: T) => void, sign
                 signal.removeEventListener('abort', listener)
             }
         }
-        // Must be declared in a separate statement to avoid a RefernceError when
-        // accessing subscription below in the closure due to Temporal Dead Zone.
-        let subscription: Subscription
         subscription = source.subscribe(
             value => {
                 try {
