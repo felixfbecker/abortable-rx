@@ -68,7 +68,7 @@ After an Observable is unsubscribed from, all further emissions or errors are ig
 
 ```ts
 import { fromEvent } from 'rxjs'
-import { switchMap } from 'abortable-rx/operators'
+import { switchMap } from 'abortable-rx'
 
 fromEvent(input, 'value')
   .pipe(switchMap(async (event, i, signal) => {
