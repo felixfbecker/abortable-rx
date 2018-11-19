@@ -90,7 +90,7 @@ class ClientConnection {
   private events: Observable<Event>
 
   async sync(signal?: AbortSignal): Promise<void> {
-    await this.scheduleSync('immediatly', signal)
+    await this.scheduleSync('immediately', signal)
     const stream = this.events.pipe(
       filter(event => event.type === 'SYNC_COMPLETED'),
       take(1)
