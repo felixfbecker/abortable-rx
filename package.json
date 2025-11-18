@@ -68,7 +68,7 @@
     "@commitlint/config-conventional": "^7.0.1",
     "@semantic-release/exec": "^3.1.1",
     "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
+    "@types/mocha": "^10.0.0",
     "@types/node": "^10.9.2",
     "@types/sinon": "^5.0.1",
     "abort-controller": "^1.0.2",
