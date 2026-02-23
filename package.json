@@ -72,7 +72,7 @@
     "@types/node": "^10.9.2",
     "@types/sinon": "^5.0.1",
     "abort-controller": "^1.0.2",
-    "chai": "^4.1.2",
+    "chai": "^6.0.0",
     "mocha": "^5.2.0",
     "nyc": "^13.0.0",
     "prettier": "^1.14.2",
